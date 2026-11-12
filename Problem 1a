@@ -1,0 +1,38 @@
+        .data
+n:      .word 10
+result: .word 0
+
+        .text
+        .globl main
+main:
+        lw   $a0, n
+        jal  fibonacci
+        sw   $v0, result
+
+        move $a0, $v0
+        li   $v0, 1
+        syscall
+
+        li   $v0, 10
+        syscall
+
+fibonacci:
+        slti $t0, $a0, 2
+        beq  $t0, $zero, fib_init
+        move $v0, $a0
+        jr   $ra
+
+fib_init:
+        li   $t1, 0
+        li   $t2, 1
+        addi $t3, $a0, -1
+
+fib_loop:
+        move $t4, $t2
+        addu $t2, $t1, $t2
+        move $t1, $t4
+        addi $t3, $t3, -1
+        bne  $t3, $zero, fib_loop
+
+        move $v0, $t2
+        jr   $ra
