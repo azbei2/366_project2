@@ -1,19 +1,45 @@
         .data
-n:      .word 5
+m:      .word 7
 result: .word 0
 
         .text
         .globl main
 main:
-        lw   $a0, n
-        jal  IsOdd
+        lw   $a0, m
+        jal  isodd
         sw   $v0, result
 
-        move  $a0, $v0
-        li    $v0, 1
+        move $a0, $v0
+        li   $v0, 1
         syscall
 
-        li    $v0, 10
+        li   $v0, 10
         syscall
 
+isodd:
+        addi $sp, $sp, -4
+        sw   $ra, 0($sp)
 
+        li   $a1, 2
+        jal  division
+
+        lw   $ra, 0($sp)
+        addi $sp, $sp, 4
+
+        bne  $v0, $zero, is_odd
+        li   $v0, 0
+        jr   $ra
+is_odd:
+        li   $v0, 1
+        jr   $ra
+
+division:
+        li   $v1, 0
+loop:
+        blt  $a0, $a1, divis_res
+        sub  $a0, $a0, $a1
+        addi $v1, $v1, 1
+        j    loop
+divis_res:
+        move $v0, $a0
+        jr   $ra
