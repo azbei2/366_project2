@@ -1,1 +1,19 @@
+        .data
+n:      .word 5
+result: .word 0
+
+        .text
+        .globl main
+main:
+        lw   $a0, n
+        jal  IsOdd
+        sw   $v0, result
+
+        move  $a0, $v0
+        li    $v0, 1
+        syscall
+
+        li    $v0, 10
+        syscall
+
 
