@@ -1,4 +1,4 @@
-ECE 366 Project 2 Final Report
+# ECE 366 Project 2 Final Report
 
 Name: Mohammed Aldaeri UIN: 667451788
 Name: Abdalrahman Zbeidi UIN: 661906508
